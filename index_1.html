@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>四叶幸福自测</title>
+<meta name="description" content="40 道题，从身心能量、情绪天气、关系联结、意义掌控四个方面，测一测你最近两周的幸福指数。">
+<meta property="og:title" content="四叶幸福自测">
+<meta property="og:description" content="花七分钟，看看你最近两周过得怎么样。">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#EDF1EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111712" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-105 -105 210 210'%3E%3Cpath transform='rotate(-45)' fill='%235A9B52' d='M0,0C-8,-18,-52,-34,-48,-68C-45,-92,-12,-98,0,-78C12,-98,45,-92,48,-68C52,-34,8,-18,0,0Z'/%3E%3Cpath transform='rotate(45)' fill='%23D49A22' d='M0,0C-8,-18,-52,-34,-48,-68C-45,-92,-12,-98,0,-78C12,-98,45,-92,48,-68C52,-34,8,-18,0,0Z'/%3E%3Cpath transform='rotate(135)' fill='%23D26A79' d='M0,0C-8,-18,-52,-34,-48,-68C-45,-92,-12,-98,0,-78C12,-98,45,-92,48,-68C52,-34,8,-18,0,0Z'/%3E%3Cpath transform='rotate(225)' fill='%234A82AA' d='M0,0C-8,-18,-52,-34,-48,-68C-45,-92,-12,-98,0,-78C12,-98,45,-92,48,-68C52,-34,8,-18,0,0Z'/%3E%3C/svg%3E">
+<!-- 字体异步加载：访问不到时直接使用系统字体，不会卡住页面 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+XiaoWei&display=swap" media="print" onload="this.media='all'">
+<style>
+/* Layout: phones get one column; from 960px the home page widens and the result splits into a score column and a reading column. The quiz always stays a narrow, focused column. The four-leaf clover is the one bold element. */
+:root {
+  --bg: #EDF1EA;
+  --surface: #FAFBF7;
+  --ink: #1C2921;
+  --muted: #56655C;
+  --line: #D0DACD;
+  --accent: #2E7549;
+  --accent-ink: #FFFFFF;
+  --c-body: #5A9B52;
+  --c-mood: #D49A22;
+  --c-bond: #D26A79;
+  --c-path: #4A82AA;
+  --stem: #4E8A5C;
+  --f-display: "ZCOOL XiaoWei", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --f-body: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  --f-num: "Fraunces", "Georgia", "Times New Roman", serif;
+  --r-card: 22px;
+  --r-ctl: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111712;
+    --surface: #19211B;
+    --ink: #E3EBE4;
+    --muted: #97A69C;
+    --line: #2B372F;
+    --accent: #6DBF8B;
+    --accent-ink: #0E1A12;
+    --c-body: #7BBE71;
+    --c-mood: #E8B746;
+    --c-bond: #E78A98;
+    --c-path: #6EA6CF;
+    --stem: #5E9E6C;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-top: calc(28px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; font-weight: 400; }
+p { margin: 0; }
+button {
+  font: inherit; color: inherit; cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible, textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 2px;
+}
+.eyebrow { font-size: 13px; letter-spacing: 0.14em; color: var(--muted); }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums lining-nums; }
+.screen {
+  width: 100%;
+  max-width: 660px;
+  margin-inline: auto;
+  display: flex; flex-direction: column; gap: 32px;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 50px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 16px; font-weight: 500;
+  border: 1.5px solid transparent;
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn:active { transform: scale(.98); }
+.link-btn { background: none; border: 0; padding: 8px 2px; color: var(--muted); font-size: 14px; }
+@media (hover: hover) {
+  .btn-primary:hover { background: color-mix(in srgb, var(--accent) 88%, var(--ink)); }
+  .btn-ghost:hover { border-color: var(--muted); }
+  .link-btn:hover { color: var(--ink); }
+}
+
+/* ---------- home ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 24px; align-items: center; }
+.hero-text { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.hero h1 { font-family: var(--f-display); font-size: clamp(40px, 9vw, 60px); line-height: 1.15; letter-spacing: 0.02em; }
+.lead { color: var(--muted); max-width: 34em; }
+.hero-clover svg { width: 100%; height: auto; display: block; overflow: visible; }
+.sway { transform-box: fill-box; transform-origin: 50% 50%; animation: sway 7s ease-in-out infinite; }
+@keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fact { padding: 14px 4px; display: flex; flex-direction: column; gap: 2px; }
+.fact + .fact { border-left: 1px solid var(--line); padding-left: 16px; }
+.fact .num { font-size: 30px; line-height: 1.1; font-weight: 600; }
+.fact span:last-child { font-size: 13px; color: var(--muted); }
+
+.dims { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; }
+.dim-item { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 2px 10px; align-items: start; }
+.dim-item .leaf-ico { margin-top: 4px; }
+.dim-item h3 { font-size: 17px; font-weight: 700; line-height: 1.5; }
+.dim-item p { grid-column: 2; font-size: 14px; color: var(--muted); line-height: 1.65; }
+.leaf-ico { width: 22px; height: 22px; display: block; flex: none; }
+
+.start { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.start-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.small-note { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 38em; }
+
+/* ---------- quiz ---------- */
+#quiz { max-width: 680px; }
+.qtop {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2;
+  background: var(--bg);
+  padding-block: 10px;
+  margin-block: -10px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.qmeta { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.qpart { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; min-width: 0; }
+.qpart .leaf-ico { width: 18px; height: 18px; }
+.qcount { font-size: 15px; color: var(--muted); white-space: nowrap; }
+.qcount b { color: var(--ink); font-weight: 600; font-size: 20px; }
+.progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+.seg { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.seg i { display: block; height: 100%; width: 0; border-radius: inherit; transition: width .35s ease; }
+
+.qcard {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 28px 24px 24px;
+  display: flex; flex-direction: column; gap: 22px;
+}
+.qcard.enter { animation: qin .32s ease both; }
+@keyframes qin { from { opacity: .35; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.qtext-wrap { display: flex; flex-direction: column; gap: 8px; }
+.qhint { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
+.qtext { font-size: clamp(19px, 4.6vw, 22px); font-weight: 500; line-height: 1.6; }
+.options { display: grid; gap: 10px; }
+.opt {
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); align-items: center; gap: 12px;
+  text-align: left;
+  padding: 13px 16px;
+  min-height: 54px;
+  background: var(--bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--r-ctl);
+  font-size: 16px; line-height: 1.5;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.opt .key {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--f-num); font-size: 15px; font-weight: 600;
+  border: 1.5px solid var(--line); color: var(--muted);
+  background: var(--surface);
+}
+@media (hover: hover) { .opt:hover { border-color: color-mix(in srgb, var(--dc) 60%, transparent); } }
+.opt:active { background: color-mix(in srgb, var(--dc) 10%, var(--bg)); }
+.opt[aria-pressed="true"] { border-color: var(--dc); background: color-mix(in srgb, var(--dc) 16%, var(--surface)); }
+.opt[aria-pressed="true"] .key { background: var(--dc); border-color: var(--dc); color: var(--surface); }
+.qnav { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.kbd-hint { font-size: 12px; color: var(--muted); }
+@media (hover: none) { .kbd-hint { display: none; } }
+
+/* ---------- result ---------- */
+.r-side, .r-main { display: contents; }
+.r-head { order: 1; display: flex; flex-direction: column; gap: 10px; }
+.clover-card { order: 2; }
+#dimsSection { order: 3; }
+#focusSection { order: 4; }
+#tipsSection { order: 5; }
+#keepSection { order: 6; }
+#rCare { order: 7; }
+.r-actions-wrap { order: 8; }
+
+.score-line { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.big { font-family: var(--f-num); font-weight: 600; font-size: clamp(84px, 22vw, 120px); line-height: .95; letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.outof { font-family: var(--f-num); font-size: 22px; color: var(--muted); }
+.band { font-family: var(--f-display); font-size: clamp(30px, 7vw, 38px); line-height: 1.2; }
+.summary { color: var(--muted); max-width: 36em; }
+.delta { font-size: 14px; color: var(--muted); }
+.delta b { color: var(--ink); font-weight: 500; }
+
+.clover-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px 12px 8px; }
+.clover-card svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+.clover-card figcaption { text-align: center; font-size: 13px; color: var(--muted); padding: 6px 12px 10px; }
+.grow { transform-box: fill-box; transform-origin: 50% 100%; animation: grow 1s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes grow { from { transform: scale(.25); } to { transform: scale(1); } }
+
+.section { display: flex; flex-direction: column; gap: 16px; }
+.section > h2 { font-family: var(--f-display); font-size: 26px; line-height: 1.3; }
+.section > .sub { color: var(--muted); font-size: 15px; margin-top: -8px; }
+
+.dimrows { display: flex; flex-direction: column; }
+.dimrow { padding: 16px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; align-items: center; }
+.dimrow:last-child { border-bottom: 1px solid var(--line); }
+.dimrow-name { display: flex; align-items: center; gap: 8px; font-weight: 700; flex-wrap: wrap; min-width: 0; }
+.dimrow-name .leaf-ico { width: 18px; height: 18px; }
+.dimrow-score { font-family: var(--f-num); font-size: 26px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.bar { grid-column: 1 / -1; height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--line) 70%, transparent); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: inherit; }
+.dimrow p { grid-column: 1 / -1; font-size: 14.5px; color: var(--muted); line-height: 1.7; }
+.chip { font-size: 12px; font-weight: 500; padding: 1px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); letter-spacing: .04em; }
+.chip.low { border-color: transparent; background: color-mix(in srgb, var(--dc) 20%, var(--surface)); color: var(--ink); }
+.chip.high { border-color: color-mix(in srgb, var(--dc) 55%, transparent); color: var(--ink); }
+
+.focus-list { display: flex; flex-direction: column; gap: 28px; }
+.focus { display: flex; flex-direction: column; gap: 14px; }
+.focus h3 { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+.focus h3 .leaf-ico { width: 20px; height: 20px; }
+.focus h3 .num { font-weight: 600; color: var(--muted); font-size: 16px; }
+.focus > p { font-size: 15px; color: var(--muted); }
+.sugs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.sugs li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.75; }
+.sugs li::before { content: ""; width: 8px; height: 8px; margin-top: 10px; border-radius: 50%; background: var(--dc); }
+.sugs b { font-weight: 700; }
+
+.tips { display: grid; gap: 12px; }
+.tip { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.tip-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tip h4 { font-size: 16px; font-weight: 700; }
+.tip-tag { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.tip-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--dc); }
+.tip p { font-size: 14.5px; color: var(--muted); line-height: 1.75; }
+.tip .from { font-size: 12.5px; opacity: .85; }
+
+.keep { border-left: 3px solid var(--dc); padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 6px; }
+.keep h3 { font-size: 17px; font-weight: 700; }
+.keep p { font-size: 15px; color: var(--muted); }
+
+.care {
+  background: color-mix(in srgb, var(--c-bond) 12%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-bond) 35%, var(--line));
+  border-radius: var(--r-card);
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.care h3 { font-size: 17px; font-weight: 700; }
+.care p { font-size: 15px; line-height: 1.8; }
+.hotline { font-family: var(--f-num); font-weight: 600; font-size: 20px; user-select: all; -webkit-user-select: all; }
+
+.r-actions-wrap { display: flex; flex-direction: column; gap: 14px; }
+.r-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.copy-status { font-size: 14px; color: var(--muted); }
+#copyFallback {
+  width: 100%; min-height: 110px; resize: vertical;
+  border-radius: var(--r-ctl); border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink);
+  font: 14px/1.6 var(--f-body); padding: 10px 12px;
+}
+
+.foot { width: 100%; max-width: 660px; margin-inline: auto; border-top: 1px solid var(--line); padding-top: 18px; font-size: 12.5px; color: var(--muted); line-height: 1.8; }
+.app[data-screen="quiz"] .foot { max-width: 680px; }
+
+/* ---------- phones ---------- */
+@media (max-width: 560px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-clover { order: -1; width: 128px; }
+  .dims { grid-template-columns: minmax(0, 1fr); }
+  .qcard { padding: 22px 16px 18px; gap: 18px; }
+  .fact .num { font-size: 26px; }
+  .fact + .fact { padding-left: 12px; }
+  .r-actions .btn { flex: 1 1 140px; }
+}
+@media (max-width: 360px) {
+  .opt { padding: 11px 12px; font-size: 15px; gap: 10px; min-height: 50px; }
+  .qtext { font-size: 18px; }
+  .fact span:last-child { font-size: 12px; }
+}
+
+/* ---------- computers and tablets in landscape ---------- */
+@media (min-width: 960px) {
+  .app { gap: 56px; padding-top: calc(48px + env(safe-area-inset-top, 0px)); }
+  #home, #result { max-width: 1080px; }
+  .app[data-screen="home"] .foot, .app[data-screen="result"] .foot { max-width: 1080px; }
+  .hero { grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; }
+  .hero h1 { font-size: clamp(56px, 6vw, 76px); }
+  .lead { font-size: 17px; }
+  .facts { max-width: 720px; }
+  .dims { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  #quiz { margin-top: 3vh; }
+  .qcard { padding: 36px 36px 30px; }
+
+  #result {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    gap: 40px 64px;
+    align-items: start;
+  }
+  .r-side, .r-main { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+  .section > h2 { font-size: 28px; }
+}
+@media (min-width: 960px) and (min-height: 900px) {
+  .r-side { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway, .grow, .qcard.enter { animation: none; }
+  .seg i, .btn, .opt { transition: none; }
+}
+</style>
+</head>
+<body>
+<main class="app" id="app" data-screen="home">
+  <!-- ========== HOME ========== -->
+  <section class="screen" id="home" aria-labelledby="homeTitle">
+    <div class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">近期幸福自测</p>
+        <h1 id="homeTitle">你最近，<br>幸福吗？</h1>
+        <p class="lead">花七分钟左右回顾最近两周的生活。四片叶子分别代表身心能量、情绪天气、关系联结和意义掌控。答完之后，你会看到属于自己的幸福四叶草，以及几条马上就能用起来的建议。</p>
+      </div>
+      <div class="hero-clover" id="heroClover" aria-hidden="true"></div>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><span class="num" id="factCount">40</span><span>道选择题</span></div>
+      <div class="fact"><span class="num">7</span><span>分钟左右</span></div>
+      <div class="fact"><span class="num">2</span><span>周，回顾范围</span></div>
+    </div>
+
+    <div class="dims" id="dimList"></div>
+
+    <div class="start">
+      <div class="start-row">
+        <button class="btn btn-primary" id="startBtn" type="button">开始测试</button>
+        <button class="btn btn-ghost" id="resumeBtn" type="button" hidden>继续上次</button>
+      </div>
+      <p class="small-note">凭第一感觉作答就好，没有对错之分。所有计算都在你自己的手机或电脑上完成，答案不会上传。</p>
+    </div>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section class="screen" id="quiz" hidden aria-live="polite">
+    <div class="qtop" id="qTop">
+      <div class="qmeta">
+        <div class="qpart" id="qPart"></div>
+        <div class="qcount"><b class="num" id="qNow">1</b> <span class="num" id="qTotal">/ 40</span></div>
+      </div>
+      <div class="progress" id="progress" aria-hidden="true"></div>
+    </div>
+    <div class="qcard" id="qCard">
+      <div class="qtext-wrap">
+        <p class="qhint" id="qHint"></p>
+        <h2 class="qtext" id="qText"></h2>
+      </div>
+      <div class="options" id="qOpts" role="group" aria-labelledby="qText"></div>
+    </div>
+    <div class="qnav">
+      <button class="link-btn" id="backBtn" type="button">← 上一题</button>
+      <span class="kbd-hint">可以用数字键 1–5 作答</span>
+    </div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section class="screen" id="result" hidden>
+    <div class="r-side">
+      <div class="r-head">
+        <p class="eyebrow">你的近期幸福指数</p>
+        <div class="score-line"><span class="big" id="rScore">0</span><span class="outof">/ 100</span></div>
+        <h1 class="band" id="rBand"></h1>
+        <p class="summary" id="rSummary"></p>
+        <p class="delta" id="rDelta" hidden></p>
+      </div>
+
+      <figure class="clover-card">
+        <div id="rClover"></div>
+        <figcaption>叶子越舒展，这一方面的状态越好。虚线是满分时的大小。</figcaption>
+      </figure>
+
+      <div class="r-actions-wrap">
+        <div class="r-actions">
+          <button class="btn btn-primary" id="copyBtn" type="button">复制我的结果</button>
+          <button class="btn btn-ghost" id="againBtn" type="button">重新测试</button>
+        </div>
+        <span class="copy-status" id="copyStatus" role="status"></span>
+        <textarea id="copyFallback" readonly hidden aria-label="结果文字，可手动复制"></textarea>
+        <p class="small-note">过两周可以再来测一次，看看叶子有没有长大。同一台设备会记住你上一次的分数，方便对比。</p>
+      </div>
+    </div>
+
+    <div class="r-main">
+      <div class="section" id="dimsSection">
+        <h2>四片叶子</h2>
+        <div class="dimrows" id="rDims"></div>
+      </div>
+
+      <div class="section" id="focusSection">
+        <h2>最需要照顾的地方</h2>
+        <div class="focus-list" id="rFocus"></div>
+      </div>
+
+      <div class="section" id="tipsSection">
+        <h2>从这几件小事开始</h2>
+        <p class="sub">根据你得分较低的几道题挑出来的，一次做一件就够了。</p>
+        <div class="tips" id="rTips"></div>
+      </div>
+
+      <div class="section" id="keepSection">
+        <h2>你做得好的地方</h2>
+        <div id="rKeep"></div>
+      </div>
+
+      <div class="care" id="rCare" hidden>
+        <h3>如果这种状态已经持续了一阵子</h3>
+        <p>当低落、焦虑或提不起劲持续两周以上，开始影响睡眠、吃饭或上课工作时，请不要一个人硬撑。可以先和一位信任的人聊聊，也可以联系学校或单位的心理咨询中心。想随时找人说说话，可以拨打全国心理援助热线：</p>
+        <p class="hotline">12356</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    本测试的题目参考了 WHO-5 幸福感指数、PERMA 幸福模型、孤独感量表，以及玛莎·努斯鲍姆（Martha Nussbaum）提出的人类核心能力清单，由作者改编而成。它适合用来了解近况、找到可以调整的地方，不能代替专业的心理评估或诊断。
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= data ================= */
+  var DIMS = [
+    {
+      key: "body", name: "身心能量",
+      desc: "睡眠、精力和饮食，身体是否被照顾好，住得安不安心，能否自在地行动和感受。",
+      text: {
+        high: "身体给你的反馈不错：睡得还行，精力够用，也懂得照顾自己。这是其他一切的底座，值得好好守住。",
+        mid: "身体还在撑着你，但已经有地方在提醒你：电量没有那么满了。",
+        low: "你的身体最近明显在透支。精力不足时，情绪和效率都会跟着往下掉，这不代表你不够努力。"
+      },
+      sugs: [
+        ["固定起床时间。", "比起固定几点睡，固定几点起更容易坚持，也更能稳住作息。周末也尽量别和平时差出两小时以上。"],
+        ["每天动 20 分钟。", "快走去上课、饭后绕操场两圈都算。目标是让身体动起来，不必练到累。"],
+        ["每天留一段真正的空档。", "哪怕只有 15 分钟，不刷手机、不想待办，泡个脚、洗个热水澡，或者只是发会儿呆。"]
+      ],
+      keep: "保持现在的作息节奏。忙起来的时候，请把睡眠放在最后一个被牺牲的位置。"
+    },
+    {
+      key: "mood", name: "情绪天气",
+      desc: "愉快和平静的时间有多少，烦躁和担忧占了多大分量，能不能尽情地笑、玩和表达。",
+      text: {
+        high: "最近大多数时候你心情明朗、内心安稳，能笑能玩，遇到不顺也能比较快地缓过来。",
+        mid: "情绪有晴有雨，总体撑得住，但烦躁或担心占了不小的位置。",
+        low: "你最近的情绪负担比较重：开心的时刻少，烦躁、担忧或提不起劲的时候多。这很辛苦，值得被认真对待。"
+      },
+      sugs: [
+        ["给担心定一个时间。", "每天固定 15 分钟，把担心的事写下来，每条后面写一个现在就能做的最小一步。其他时间担心冒出来，就告诉自己留到那 15 分钟再想。"],
+        ["每晚记下三件小好事。", "奶茶好喝、阳光很好、有人回了消息，都算。坚持一两周，注意力会慢慢学会看见它们。"],
+        ["情绪上来时，先照顾身体。", "吸气 4 秒、慢慢呼气 6 秒，重复几轮；或者起身走到窗边，喝一杯温水。等身体平静下来，再决定怎么回应。"]
+      ],
+      keep: "留意一下是哪些人和事让你心情好，把它们排进日程里，别只在有空的时候才做。"
+    },
+    {
+      key: "bond", name: "关系联结",
+      desc: "有没有人可以分享、依靠，能不能爱与被爱、关心别人，和自然万物有没有联系。",
+      text: {
+        high: "你身边有能分享、能依靠的人，也有归属感和感激之心。这是幸福感里最稳的支柱之一。",
+        mid: "你并不孤立，但和人、和周围世界的联系有些松散，或者有的关系正在消耗你。",
+        low: "最近你可能感到比较孤单，或者身边的关系让你疲惫。人需要被看见，这个缺口会实实在在地影响心情。"
+      },
+      sugs: [
+        ["主动发起一次具体的约定。", "约一个人吃饭、散步或一起自习，定好时间和地点。比“改天聚聚”管用得多。"],
+        ["把聊天往前推一步。", "下次和熟人聊天时，多问一句“你最近过得怎么样”，也说一件自己真实的近况。"],
+        ["找一个固定出现的群体。", "社团、球队、读书会、志愿活动都可以。规律地和同一群人见面，归属感会自己长出来。"]
+      ],
+      keep: "关系需要日常的照料。哪怕只是一句“刚看到这个，想到了你”，也是在给这份联系续上温度。"
+    },
+    {
+      key: "path", name: "意义掌控",
+      desc: "做的事有没有意义和进展，能不能思考、反省自己想要什么，过的是不是自己的生活。",
+      text: {
+        high: "你在做自己认可的事，清楚自己看重什么，也能感到进展和掌控，日子是你自己的。",
+        mid: "生活在正常运转，但有时会觉得被推着走、活在别人的期待里，或者不太确定这些忙碌是为了什么。",
+        low: "你最近可能感到被事情推着跑、看不到进展，或者不太确定自己想要什么。迷茫和失控感很消耗人，好在它通常可以从很小的地方开始改善。"
+      },
+      sugs: [
+        ["把大任务拆到今天能完成的大小。", "比如把“写论文”拆成“列出三个小标题”。完成就打个勾，进展感是这样一点点攒出来的。"],
+        ["每周写一次“我做成了什么”。", "按时交了作业、整理了房间、回了一封拖了很久的邮件，都写上。我们常常低估自己做了多少。"],
+        ["每周放一件只为自己的事。", "学一首歌、画画、读一本闲书，每周固定一两次。它不需要有用，只要让你有所期待。"]
+      ],
+      keep: "偶尔回头看看已经走过的路，给自己一点肯定。方向感也需要时不时校准一下。"
+    }
+  ];
+
+  var F  = [["从不", 0], ["很少", 1], ["有时", 2], ["经常", 3], ["几乎总是", 4]];
+  var FR = [["从不", 4], ["很少", 3], ["有时", 2], ["经常", 1], ["几乎总是", 0]];
+  var A  = [["完全不符合", 0], ["不太符合", 1], ["一半一半", 2], ["比较符合", 3], ["非常符合", 4]];
+  var HINT_F = "最近两周，这种情况出现得多吗？";
+  var HINT_A = "这句话有多符合你最近两周的状态？";
+  var HINT_S = "选出最接近你最近两周情况的一项";
+
+  function q(id, d, t, o, tipH, tipB) {
+    var hint = (o === F || o === FR) ? HINT_F : (o === A) ? HINT_A : HINT_S;
+    return { id: id, d: d, t: t, o: o, hint: hint, tip: { h: tipH, b: tipB } };
+  }
+
+  var Q = [
+    /* ---- 身心能量 ---- */
+    q("b1", "body", "早上醒来时，你通常感觉……",
+      [["睡饱了，精神是满的", 4], ["还行，缓一会儿就清醒了", 3], ["要靠好几个闹钟和咖啡才撑得起来", 1], ["像没睡一样，怎么都睡不醒", 0]],
+      "先把睡眠补回来", "睡前一小时把手机放远一点、把灯调暗，充电器别放在床边；躺下 20 分钟还睡不着，就起来做点无聊的事，困了再回床上。比起固定几点睡，固定几点起更容易做到。"),
+    q("b2", "body", "白天做事的时候，你觉得精力充沛、手脚利落。", F,
+      "低电量时别硬扛", "把最费脑的事放到一天中状态最好的时段，其余的允许自己做得普通一点。午后小睡 15–20 分钟，比硬撑一下午更划算。"),
+    q("b3", "body", "你的三餐大体规律，吃得饱也吃得好，而不是边刷手机边随便应付。", A,
+      "好好吃一顿饭", "每天至少留一顿饭给自己：放下手机，慢慢吃完。三餐规律能让精力和情绪都更平稳，饿着肚子时人也更容易烦躁。"),
+    q("b4", "body", "头痛、肩颈僵硬、胃不舒服这类身体上的不适找上你。", FR,
+      "让紧绷的身体松下来", "每坐一小时就起身活动一下肩颈；睡前用热水袋敷一敷后颈，或者做几分钟拉伸。不适如果反复出现或越来越重，就去校医院或医院看一看。"),
+    q("b5", "body", "身体出了状况时，你会及时照顾它（看医生、按时吃药、请假休息），而不是硬拖着。", A,
+      "别拖着身体的小毛病", "给自己定一条规矩：不舒服超过三天，或者影响到吃饭睡觉，就去看医生。按时体检、按时吃药，也是在为很多年以后的自己负责。"),
+    q("b6", "body", "最近两周，你平均每周有几天让身体真正动起来？（快走、骑车、运动，每次 20 分钟以上）",
+      [["4 天或更多", 4], ["2–3 天", 3], ["1 天", 1], ["几乎没有", 0]],
+      "从一点点开始动", "不用急着办健身卡。先定一个很小的目标：这周有两天快走 20 分钟，做到了就算赢。去上课多绕一段路也算数。"),
+    q("b7", "body", "最近两周，你能比较自由地去想去的地方吗？（出门散心、回家、见朋友）",
+      [["想去哪儿基本都能去", 4], ["大多数时候可以", 3], ["常常被时间、距离或身体状况困住", 1], ["几乎被困在固定的几个地方", 0]],
+      "给自己安排一次出走", "不用走远：这周找半天去一个没去过的公园、街区或书店。换一换环境，脑子也会跟着松快一点。"),
+    q("b8", "body", "你住的地方（宿舍、出租屋或家）让你觉得安心，能好好休息。", A,
+      "把住处收拾成能休息的地方", "不用大动干戈：换一套干净的床单、添一盏暖光小灯、备好耳塞和眼罩，都能明显改善休息环境。如果是室友作息或住处安全的问题，值得找室友、辅导员或房东好好谈一次。"),
+    q("b9", "body", "当你想休息的时候，你能……",
+      [["真正放松下来，休息就是休息", 4], ["大多数时候能放松", 3], ["人在休息，心里还惦记着没做完的事", 1], ["几乎找不到属于自己的空档", 0]],
+      "给休息划一条边界", "比如晚上十点以后不看工作群和班级群。休息时总惦记着待办，就先把它们写在纸上，脑子会更容易放下。"),
+    q("b10", "body", "最近你有没有被某种感官体验打动？（一首歌、一口好吃的、一片晚霞、一阵花香）",
+      [["经常，生活里处处有这样的时刻", 4], ["有过几次", 3], ["偶尔，很少留意", 1], ["好像什么都没感觉", 0]],
+      "让五感醒过来", "每天挑一个时刻慢下来：认真尝一口饭，听完一首歌的前奏，抬头看一会儿云。感官打开的时候，愉快的体验也更容易被留住。"),
+
+    /* ---- 情绪天气 ---- */
+    q("e1", "mood", "你感到心情愉快、精神不错。", F,
+      "每天安排一件开心的小事", "列一张属于你的“小确幸清单”：喜欢的歌、一家好吃的店、一部轻松的剧、一条常走的路。每天至少从里面挑一件来做。"),
+    q("e2", "mood", "你感到内心平静、放松。", F,
+      "每天练习五分钟安静", "每天花 5 分钟只做一件事：慢慢地呼吸，或者专心喝完一杯热饮。平静是可以练出来的，越练越容易找到。"),
+    q("e3", "mood", "你会莫名烦躁，一点小事就容易着急上火。", FR,
+      "烦躁时先按暂停", "察觉自己快要发火时，先离开现场几分钟。烦躁往往是累了、饿了或憋得太久的信号，先照顾好这些需要，再处理事情。"),
+    q("e4", "mood", "担心的事情在脑子里反复转，停不下来。", FR,
+      "把担心写到纸上", "把脑子里转的事写下来，分成“我能做点什么的”和“我控制不了的”两栏。前一栏各写一个最小的行动，后一栏先允许它放在那里。"),
+    q("e5", "mood", "你最近一次真心笑出声，是什么时候？",
+      [["今天或昨天", 4], ["这周之内", 3], ["要想一想，大概是上周", 1], ["想不起来了", 0]],
+      "给笑一点机会", "找一个让你放松的老朋友聊聊天，或者重看一部曾经让你笑出声的剧。笑能实实在在地帮身体卸压，值得刻意安排。"),
+    q("e6", "mood", "最近两周，你有没有纯粹为了好玩去做的事，并且玩得尽兴、不觉得内疚？",
+      [["有，玩得很开心", 4], ["有，但玩的时候总惦记着该做的事", 2], ["想玩，但没时间或没心情", 1], ["好像已经不太会玩了", 0]],
+      "认真地玩一次", "在日程里给“玩”留一个正式的位置，比如周六下午打两局游戏、约朋友打一场球。提前安排好的玩，不用偷偷摸摸，也就不会内疚。"),
+    q("e7", "mood", "遇到一件糟心事（比如计划被打乱、被人误会），你通常多久能缓过来？",
+      [["当天就能放下", 4], ["一两天", 3], ["要好几天", 1], ["会一直压在心里", 0]],
+      "别一个人闷着", "遇到糟心事后，跟信任的人说一说，或者把经过和感受写下来。不必逼自己马上放下，说出来本身就能让它轻一些。"),
+    q("e8", "mood", "开心、难过、想念这些情绪，你能坦然地感受和表达，不必一直压着。", A,
+      "给情绪找一个出口", "情绪不需要都讲道理。可以写下来，可以跟信任的人说，难过的时候也可以允许自己哭一场。压着的情绪不会消失，表达出来反而更容易过去。"),
+    q("e9", "mood", "你提不起劲，连原本喜欢的事也觉得没意思。", FR,
+      "留意持续的“没意思”", "先做一件过去喜欢、只需要 10 分钟的小事，不求享受，只求开始。如果这种提不起劲已经持续两周以上，建议找学校或专业的心理咨询师聊一聊。"),
+    q("e10", "mood", "整体来说，最近两周你的心情更像哪种天气？",
+      [["晴朗", 4], ["晴间多云", 3], ["阴天", 2], ["时常下雨", 1], ["连日暴雨", 0]],
+      "阴雨天找人一起撑伞", "把最近的感受讲给一个信任的人听。心情持续低落不代表你脆弱，被认真地倾听本身就有帮助。"),
+
+    /* ---- 关系联结 ---- */
+    q("c1", "bond", "遇到开心或烦心的事，身边有人可以马上分享。", A,
+      "今天给一个人发条消息", "想一想谁是你愿意多联系的人，今天就给对方发一条消息，分享一件小事。联系常常就是从一句很普通的话开始的。"),
+    q("c2", "bond", "最近两周，你和朋友或家人有过真正投入的交谈吗？（不只是事务性的聊天）",
+      [["有过好几次", 4], ["有过一两次", 3], ["只在网上零零碎碎地聊过", 1], ["几乎没有", 0]],
+      "约一次不赶时间的聊天", "约朋友散步或吃饭，把手机扣在桌上。一次投入的长聊，胜过很多条零碎的消息。"),
+    q("c3", "bond", "你感到自己被身边的人爱着、在乎着。", F,
+      "让爱被看见", "被爱有时候需要一点主动：告诉在乎你的人你最近的近况，也接住他们的关心。可以想一想，最近是谁用自己的方式关心过你。"),
+    q("c4", "bond", "你感到孤单，好像没有人真正懂你。", FR,
+      "孤单是可以被回应的", "孤单说明你需要更多被理解的联系，不说明你哪里不好。可以先从一个熟悉的人开始，坦白地告诉对方：我最近有点孤单，想找你聊聊。"),
+    q("c5", "bond", "在需要的时候，你相信会有人愿意帮你一把。", A,
+      "试着开口求助一次", "从一件小事开始请别人帮忙，比如借本书、请教一个问题。大多数人其实乐意帮忙，适度地求助也会让关系更近。"),
+    q("c6", "bond", "你常常对某个人或某件事心怀感激。", F,
+      "把感谢说出口", "想一个最近帮过你、陪过你的人，给对方发一条具体的感谢：谢谢你那天……。说的人和听的人，心里都会暖一下。"),
+    q("c7", "bond", "最近两周，你为别人做过让对方开心的小事吗？（帮个忙、送点东西、认真听对方说话）",
+      [["做过好几次", 4], ["做过一次", 3], ["想过，但没顾上", 1], ["没有", 0]],
+      "为别人做一件小事", "帮室友带份饭，或者给朋友发一句真诚的夸奖。善意的小举动不只让对方开心，往往也会让自己心情变好。"),
+    q("c8", "bond", "你和身边重要的人之间，有让你心累的矛盾或冷战。", FR,
+      "把卡住的结松一松", "挑一个双方都平静的时候，用“我感到……因为……”的方式说出你的感受，少用“你总是……”。一时说不开，也可以先拉开一点距离，照顾好自己。"),
+    q("c9", "bond", "在家里、宿舍、班级、团队或某个圈子里，你有“我是其中一员”的归属感。", A,
+      "找一个固定的圈子", "参加一次社团活动、兴趣小组或志愿服务，并试着连续去几次。规律地和同一群人见面，归属感会慢慢长出来。"),
+    q("c10", "bond", "最近两周，你和大自然或小动物亲近过吗？（看看树和天空、晒晒太阳、侍弄花草、和猫狗待一会儿）",
+      [["几乎每天都有", 4], ["一周有几次", 3], ["偶尔一两次", 1], ["基本没有", 0]],
+      "去亲近一下自然", "上午出门晒 15 分钟太阳，在有树的路上走一走，给桌上添一盆好养的绿植，或者去看看校园和小区里的猫。和自然待在一起，人会不知不觉放松下来。"),
+
+    /* ---- 意义掌控 ---- */
+    q("p1", "path", "你有机会动脑思考、发挥想象，或者学点新东西，并且乐在其中。", F,
+      "喂养你的好奇心", "挑一个一直好奇的问题，花半小时去查、去读、去想，不为考试和业绩。也可以写几段随笔、画一张草图，让想象力动一动。"),
+    q("p2", "path", "你觉得自己正在做的事情，是有意义、值得的。", A,
+      "想想它通向哪里", "对手头的事问一句：它最终帮到了谁，或者帮我走向哪里？如果怎么想都找不到意义，这个信号本身也值得认真对待，可以和信任的师长或朋友聊聊方向。"),
+    q("p3", "path", "面对手头的任务和安排，你的感觉更接近……",
+      [["井井有条，节奏在自己手里", 4], ["有点忙，但应付得来", 3], ["被推着走，总在赶截止日期", 1], ["乱成一团，不知道从哪下手", 0]],
+      "做一次清单大扫除", "把所有待办都写下来，圈出本周必须完成的三件，其余的先放进“以后再说”。事情写在纸上，比堆在脑子里轻松得多。"),
+    q("p4", "path", "你清楚自己看重什么，最近的选择也大体符合这些看重的东西。", A,
+      "停下来想想自己要什么", "找一个安静的晚上，写下对你最重要的三样东西，再对照最近一周的时间花在了哪里。不必立刻改变什么，看清两者之间的差距，就是方向感的开始。"),
+    q("p5", "path", "你觉得自己在为别人的期待而活，或者忍不住拿自己和别人比较。", FR,
+      "把尺子拿回自己手里", "比较让你难受的时候，换一个问题问自己：和一个月前的我相比，有什么变化？别人的期待可以参考，最后的选择应该由你来做。刷社交媒体让你焦虑的话，也可以先给自己放几天假。"),
+    q("p6", "path", "最近两周，你有没有一个让自己有点成就感的进展，哪怕很小？",
+      [["有，而且不止一个", 4], ["有一个", 3], ["好像有，但说不上来", 1], ["没有，感觉一直在原地打转", 0]],
+      "给自己设一个小胜利", "定一个今天就能完成的小目标，完成后认真地把它划掉。进展感就是这样一点点攒起来的。"),
+    q("p7", "path", "你最近做的事，大多是自己想做的，而不只是不得不做的。", A,
+      "在“必须做”里留一点选择", "即使是不得不做的事，也可以选择怎么做：换个喜欢的地方、配上喜欢的音乐、约朋友一起。一点点选择权，就能让感受很不一样。"),
+    q("p8", "path", "在你现在的生活环境里，你可以做真实的自己，不必一直装着。", A,
+      "找一个能做自己的地方", "想一想在谁面前、在什么地方你最放松，多给自己安排这样的时间。如果在某个环境里总要戴着面具，可以先找一两个人，试着说出一点真实的想法。"),
+    q("p9", "path", "想到接下来的几周，你的心情是……",
+      [["有盼头，挺期待的", 4], ["比较安心", 3], ["平平常常", 2], ["有点发愁", 1], ["不太敢想", 0]],
+      "在日历上放一个期待", "在接下来两周里安排一件小小的、值得期待的事：一顿好饭、一部想看的电影、一次短途出行。有盼头的日子，过起来会不一样。"),
+    q("p10", "path", "如果给最近两周的生活整体打个分（0–10 分），你会打几分？",
+      [["9–10 分", 4], ["7–8 分", 3], ["5–6 分", 2], ["3–4 分", 1], ["0–2 分", 0]],
+      "先改变最想改变的那一块", "问问自己：如果要给生活加一分，最想先改变什么？把它写下来，再想一个这周就能开始的小动作。")
+  ];
+
+  var BANDS = [
+    [85, "枝繁叶茂", "最近两周你过得充实又安稳：身体有劲，心情明朗，有人可依，也清楚自己在往哪儿走。好好享受这段时光，也记下是什么让它发生的。"],
+    [70, "舒展生长", "整体状态不错，生活大体在你想要的轨道上。有一两片叶子还可以再舒展一些，下面的建议能帮你找到它们。"],
+    [55, "有点缺水", "日子过得去，但幸福感打了些折扣。某些方面可能被忙碌挤到了角落，现在稍微调整一下，效果会很明显。"],
+    [40, "需要浇水", "最近你可能有点累，不止一个方面在向你要关注。不用急着全部改变，从下面最容易的一件小事开始就好。"],
+    [0,  "先照顾好自己", "这段时间对你来说不轻松。你愿意停下来做完这份测试，已经是在关心自己了。接下来最要紧的，是让自己被照顾。"]
+  ];
+
+  var LEVEL_NAME = { high: "充盈", mid: "尚可", low: "需要照顾" };
+  var ANGLES = { body: -45, mood: 45, bond: 135, path: 225 };
+  var LEAF = "M0,0 C-8,-18 -52,-34 -48,-68 C-45,-92 -12,-98 0,-78 C12,-98 45,-92 48,-68 C52,-34 8,-18 0,0Z";
+
+  /* ================= scoring ================= */
+  function maxOf(opts) { var m = 0; for (var i = 0; i < opts.length; i++) m = Math.max(m, opts[i][1]); return m; }
+  function itemNorm(qi, ans) { var o = Q[qi].o; return o[ans][1] / maxOf(o); }
+  function indexOfId(id) { for (var i = 0; i < Q.length; i++) if (Q[i].id === id) return i; return -1; }
+  function level(v) { return v >= 75 ? "high" : v >= 50 ? "mid" : "low"; }
+  function bandOf(v) { for (var i = 0; i < BANDS.length; i++) if (v >= BANDS[i][0]) return BANDS[i]; return BANDS[BANDS.length - 1]; }
+  function dimByKey(k) { for (var i = 0; i < DIMS.length; i++) if (DIMS[i].key === k) return DIMS[i]; }
+
+  function compute(ans) {
+    var sums = {}, counts = {};
+    DIMS.forEach(function (d) { sums[d.key] = 0; counts[d.key] = 0; });
+    for (var i = 0; i < Q.length; i++) { sums[Q[i].d] += itemNorm(i, ans[i]); counts[Q[i].d] += 1; }
+    var dims = {}, total = 0;
+    DIMS.forEach(function (d) {
+      var v = sums[d.key] / counts[d.key] * 100;
+      dims[d.key] = Math.round(v); total += v;
+    });
+    return { dims: dims, overall: Math.round(total / DIMS.length) };
+  }
+
+  function pickTips(ans, dims) {
+    var items = [];
+    for (var i = 0; i < Q.length; i++) items.push({ i: i, n: itemNorm(i, ans[i]), ds: dims[Q[i].d] });
+    items.sort(function (a, b) { return a.n - b.n || a.ds - b.ds || a.i - b.i; });
+    var perDim = {}, list = [];
+    function take(pool, limit) {
+      for (var j = 0; j < pool.length && list.length < limit; j++) {
+        var d = Q[pool[j].i].d;
+        if ((perDim[d] || 0) >= 2) continue;
+        perDim[d] = (perDim[d] || 0) + 1;
+        list.push(pool[j]);
+      }
+    }
+    take(items.filter(function (x) { return x.n <= 0.25; }), 5);
+    if (list.length < 3) take(items.filter(function (x) { return x.n > 0.25 && x.n <= 0.5; }), 3);
+    return list;
+  }
+
+  /* ================= storage ================= */
+  var KEY_PROGRESS = "siye-progress-v2", KEY_LAST = "siye-last-v1";
+  function load(k) { try { var s = localStorage.getItem(k); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function drop(k) { try { localStorage.removeItem(k); } catch (e) {} }
+
+  /* ================= svg helpers ================= */
+  function leafIcon(key) {
+    return '<svg class="leaf-ico" viewBox="-55 -100 110 104" aria-hidden="true"><path d="' + LEAF + '" fill="var(--c-' + key + ')"/></svg>';
+  }
+  function cloverSVG(scores, opts) {
+    opts = opts || {};
+    var labels = !!opts.labels;
+    var vb = labels ? "-178 -132 356 300" : "-104 -104 208 264";
+    var s = '<svg viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + (opts.aria || "四叶草") + '">';
+    s += '<path d="M0,6 C8,46 20,92 10,150" fill="none" stroke="var(--stem)" stroke-width="6" stroke-linecap="round"/>';
+    s += '<g class="' + (opts.sway ? "sway" : "") + '">';
+    DIMS.forEach(function (d, k) {
+      var a = ANGLES[d.key];
+      var v = Math.max(0, Math.min(100, scores[d.key]));
+      var sc = 0.3 + 0.7 * v / 100;
+      if (labels) s += '<g transform="rotate(' + a + ')"><path d="' + LEAF + '" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"/></g>';
+      s += '<g transform="rotate(' + a + ') scale(' + sc.toFixed(3) + ')">';
+      s += '<g class="' + (opts.grow ? "grow" : "") + '" style="animation-delay:' + (opts.grow ? k * 0.12 : 0) + 's">';
+      s += '<path d="' + LEAF + '" fill="var(--c-' + d.key + ')"/>';
+      s += '<path d="M0,-8 L0,-62" stroke="var(--surface)" stroke-opacity=".55" stroke-width="2.5" stroke-linecap="round" fill="none"/>';
+      s += '</g></g>';
+    });
+    s += '<circle r="5" fill="var(--stem)"/></g>';
+    if (labels) {
+      DIMS.forEach(function (d) {
+        var a = ANGLES[d.key];
+        var right = (a === 45 || a === 135), top = (a === -45 || a === 45);
+        var x = right ? 106 : -106, y1 = top ? -98 : 70, anchor = right ? "start" : "end";
+        s += '<text x="' + x + '" y="' + y1 + '" text-anchor="' + anchor + '" font-size="13" fill="var(--muted)" font-family="var(--f-body)">' + d.name + '</text>';
+        s += '<text x="' + x + '" y="' + (y1 + 28) + '" text-anchor="' + anchor + '" font-size="26" font-weight="600" fill="var(--ink)" font-family="var(--f-num)">' + scores[d.key] + '</text>';
+      });
+    }
+    return s + '</svg>';
+  }
+
+  /* ================= dom ================= */
+  function $(id) { return document.getElementById(id); }
+  var screens = ["home", "quiz", "result"];
+  var current = "home";
+  function show(id) {
+    current = id;
+    $("app").setAttribute("data-screen", id);
+    screens.forEach(function (s) { $(s).hidden = (s !== id); });
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  var answers = new Array(Q.length).fill(null);
+  var idx = 0;
+  var locked = false;
+
+  $("factCount").textContent = Q.length;
+  $("qTotal").textContent = "/ " + Q.length;
+
+  /* ---- home ---- */
+  $("heroClover").innerHTML = cloverSVG({ body: 92, mood: 86, bond: 96, path: 89 }, { sway: true });
+  $("dimList").innerHTML = DIMS.map(function (d) {
+    return '<div class="dim-item">' + leafIcon(d.key) + '<h3>' + d.name + '</h3><p>' + d.desc + '</p></div>';
+  }).join("");
+
+  function firstUnanswered(a) { for (var i = 0; i < a.length; i++) if (a[i] === null || a[i] === undefined) return i; return a.length; }
+  function refreshHome() {
+    var p = load(KEY_PROGRESS);
+    var ok = p && Array.isArray(p.answers) && p.answers.length === Q.length && p.answers.some(function (x) { return x !== null; });
+    if (ok) {
+      var n = Math.min(firstUnanswered(p.answers), Q.length - 1);
+      $("resumeBtn").hidden = false;
+      $("resumeBtn").textContent = "继续上次（第 " + (n + 1) + " 题）";
+      $("startBtn").textContent = "重新开始";
+    } else {
+      $("resumeBtn").hidden = true;
+      $("startBtn").textContent = "开始测试";
+    }
+  }
+
+  /* ---- quiz ---- */
+  var segs = DIMS.map(function (d) {
+    var el = document.createElement("div");
+    el.className = "seg";
+    el.innerHTML = '<i style="background:var(--c-' + d.key + ')"></i>';
+    $("progress").appendChild(el);
+    return el.firstChild;
+  });
+
+  function updateProgress() {
+    DIMS.forEach(function (d, k) {
+      var total = 0, done = 0;
+      for (var i = 0; i < Q.length; i++) if (Q[i].d === d.key) { total++; if (answers[i] !== null) done++; }
+      segs[k].style.width = (done / total * 100) + "%";
+    });
+  }
+
+  function renderQuestion() {
+    var item = Q[idx];
+    var d = dimByKey(item.d);
+    var part = DIMS.indexOf(d) + 1;
+    $("quiz").style.setProperty("--dc", "var(--c-" + d.key + ")");
+    $("qPart").innerHTML = leafIcon(d.key) + '<span>第 ' + part + ' 部分 · ' + d.name + '</span>';
+    $("qNow").textContent = idx + 1;
+    $("qHint").textContent = item.hint;
+    $("qText").textContent = item.t;
+    $("qOpts").innerHTML = item.o.map(function (op, k) {
+      var on = answers[idx] === k;
+      return '<button type="button" class="opt" data-k="' + k + '" aria-pressed="' + on + '"><span class="key">' + (k + 1) + '</span><span>' + op[0] + '</span></button>';
+    }).join("");
+    $("backBtn").textContent = idx === 0 ? "← 回到首页" : "← 上一题";
+    var card = $("qCard");
+    card.classList.remove("enter");
+    void card.offsetWidth;
+    card.classList.add("enter");
+    updateProgress();
+    /* 手机上点了靠下的选项后，让下一题回到视野顶部 */
+    try {
+      var top = card.getBoundingClientRect().top;
+      var bar = $("qTop").getBoundingClientRect().height;
+      if (top < bar) window.scrollTo({ top: Math.max(0, window.pageYOffset + top - bar - 12), behavior: "smooth" });
+    } catch (e) {}
+  }
+
+  function choose(k) {
+    if (locked || current !== "quiz") return;
+    if (k < 0 || k >= Q[idx].o.length) return;
+    locked = true;
+    answers[idx] = k;
+    save(KEY_PROGRESS, { answers: answers });
+    var btns = $("qOpts").querySelectorAll(".opt");
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-pressed", String(i === k));
+    updateProgress();
+    setTimeout(function () {
+      locked = false;
+      var next = idx + 1;
+      while (next < Q.length && answers[next] !== null) next++;
+      if (next < Q.length) { idx = next; renderQuestion(); }
+      else if (firstUnanswered(answers) < Q.length) { idx = firstUnanswered(answers); renderQuestion(); }
+      else finish();
+    }, 260);
+  }
+
+  function back() {
+    if (locked) return;
+    if (idx === 0) { refreshHome(); show("home"); return; }
+    idx--; renderQuestion();
+  }
+
+  $("qOpts").addEventListener("click", function (e) {
+    var b = e.target.closest(".opt");
+    if (b) choose(Number(b.getAttribute("data-k")));
+  });
+  $("backBtn").addEventListener("click", back);
+  document.addEventListener("keydown", function (e) {
+    if (current !== "quiz" || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/^[1-5]$/.test(e.key)) { e.preventDefault(); choose(Number(e.key) - 1); }
+    else if (e.key === "ArrowLeft" || e.key === "Backspace") { e.preventDefault(); back(); }
+  });
+
+  function startFresh() {
+    answers = new Array(Q.length).fill(null);
+    idx = 0;
+    drop(KEY_PROGRESS);
+    show("quiz");
+    renderQuestion();
+  }
+  function resume() {
+    var p = load(KEY_PROGRESS);
+    if (!p || !Array.isArray(p.answers) || p.answers.length !== Q.length) { startFresh(); return; }
+    answers = p.answers.map(function (x) { return (typeof x === "number") ? x : null; });
+    idx = Math.min(firstUnanswered(answers), Q.length - 1);
+    show("quiz");
+    renderQuestion();
+  }
+  $("startBtn").addEventListener("click", startFresh);
+  $("resumeBtn").addEventListener("click", resume);
+
+  /* ---- result ---- */
+  var lastText = "";
+  function fmtDate(t) { var d = new Date(t); return (d.getMonth() + 1) + "月" + d.getDate() + "日"; }
+
+  function renderResult(ans, prev) {
+    var r = compute(ans);
+    var band = bandOf(r.overall);
+    $("rScore").textContent = r.overall;
+    $("rBand").textContent = band[1];
+    $("rSummary").textContent = band[2];
+
+    if (prev && typeof prev.overall === "number") {
+      var diff = r.overall - prev.overall;
+      var when = "上次（" + fmtDate(prev.t) + "，" + prev.overall + " 分）";
+      $("rDelta").innerHTML = diff > 0 ? "比" + when + "高了 <b>" + diff + " 分</b>" : diff < 0 ? "比" + when + "低了 <b>" + (-diff) + " 分</b>" : "和" + when + "持平";
+      $("rDelta").hidden = false;
+    } else {
+      $("rDelta").hidden = true;
+    }
+
+    $("rClover").innerHTML = cloverSVG(r.dims, { labels: true, grow: true,
+      aria: "四叶草：" + DIMS.map(function (d) { return d.name + " " + r.dims[d.key] + " 分"; }).join("，") });
+
+    $("rDims").innerHTML = DIMS.map(function (d) {
+      var v = r.dims[d.key], lv = level(v);
+      return '<div class="dimrow" style="--dc:var(--c-' + d.key + ')">' +
+        '<div class="dimrow-name">' + leafIcon(d.key) + '<span>' + d.name + '</span><span class="chip ' + lv + '">' + LEVEL_NAME[lv] + '</span></div>' +
+        '<div class="dimrow-score">' + v + '</div>' +
+        '<div class="bar"><i style="width:' + Math.max(v, 2) + '%;background:var(--c-' + d.key + ')"></i></div>' +
+        '<p>' + d.text[lv] + '</p></div>';
+    }).join("");
+
+    var sorted = DIMS.slice().sort(function (a, b) { return r.dims[a.key] - r.dims[b.key]; });
+    var focus = [];
+    if (r.dims[sorted[0].key] < 75) focus.push(sorted[0]);
+    if (focus.length && r.dims[sorted[1].key] < 65) focus.push(sorted[1]);
+    if (focus.length) {
+      $("focusSection").hidden = false;
+      $("rFocus").innerHTML = focus.map(function (d) {
+        var v = r.dims[d.key];
+        return '<div class="focus" style="--dc:var(--c-' + d.key + ')">' +
+          '<h3>' + leafIcon(d.key) + d.name + '<span class="num">' + v + '</span></h3>' +
+          '<p>' + d.text[level(v)] + '</p>' +
+          '<ul class="sugs">' + d.sugs.map(function (sg) { return '<li><span><b>' + sg[0] + '</b>' + sg[1] + '</span></li>'; }).join("") + '</ul></div>';
+      }).join("");
+    } else {
+      $("focusSection").hidden = true;
+    }
+
+    var tips = pickTips(ans, r.dims);
+    if (tips.length) {
+      $("tipsSection").hidden = false;
+      $("rTips").innerHTML = tips.map(function (x) {
+        var it = Q[x.i], d = dimByKey(it.d);
+        return '<article class="tip" style="--dc:var(--c-' + d.key + ')">' +
+          '<div class="tip-top"><h4>' + it.tip.h + '</h4><span class="tip-tag">' + d.name + '</span></div>' +
+          '<p>' + it.tip.b + '</p>' +
+          '<p class="from">来自第 ' + (x.i + 1) + ' 题：' + it.t + ' · 你选了“' + it.o[ans[x.i]][0] + '”</p></article>';
+      }).join("");
+    } else {
+      $("tipsSection").hidden = true;
+    }
+
+    var best = sorted[sorted.length - 1];
+    if (r.dims[best.key] >= 60) {
+      $("keepSection").hidden = false;
+      var allHigh = r.dims[sorted[0].key] >= 75;
+      $("rKeep").innerHTML = '<div class="keep" style="--dc:var(--c-' + best.key + ')"><h3>' +
+        (allHigh ? "四片叶子都很舒展，其中最茂盛的是" + best.name : best.name + "是你最茂盛的一片叶子") + '</h3><p>' + best.keep + '</p></div>';
+    } else {
+      $("keepSection").hidden = true;
+    }
+
+    var iFlat = indexOfId("e9"), iWeather = indexOfId("e10");
+    var flat = itemNorm(iFlat, ans[iFlat]), weather = itemNorm(iWeather, ans[iWeather]);
+    $("rCare").hidden = !(r.overall < 40 || r.dims.mood < 35 || (flat <= 0.25 && weather <= 0.25));
+
+    lastText = "我在「四叶幸福自测」中的近期幸福指数：" + r.overall + " 分（" + band[1] + "）\n" +
+      DIMS.map(function (d) { return d.name + " " + r.dims[d.key]; }).join(" ｜ ");
+    if (/^https?:$/.test(location.protocol)) lastText += "\n你也来测测：" + location.href.split("#")[0];
+    $("copyStatus").textContent = "";
+    $("copyFallback").hidden = true;
+    return r;
+  }
+
+  function finish() {
+    var prev = load(KEY_LAST);
+    var r = renderResult(answers, prev);
+    save(KEY_LAST, { t: Date.now(), overall: r.overall, dims: r.dims });
+    drop(KEY_PROGRESS);
+    show("result");
+  }
+
+  $("copyBtn").addEventListener("click", function () {
+    var fb = $("copyFallback");
+    function done() { $("copyStatus").textContent = "已复制，可以粘贴给朋友了。"; fb.hidden = true; }
+    function fallback() {
+      fb.value = lastText; fb.hidden = false; fb.focus(); fb.select();
+      try { fb.setSelectionRange(0, lastText.length); } catch (e) {}
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      if (ok) done();
+      else $("copyStatus").textContent = "没能自动复制，文字已选中，请长按或手动复制。";
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(lastText).then(done, fallback);
+      } else fallback();
+    } catch (e) { fallback(); }
+  });
+  $("againBtn").addEventListener("click", startFresh);
+
+  /* ================= boot ================= */
+  refreshHome();
+  show("home");
+})();
+</script>
+<noscript><p style="text-align:center;padding:24px">这个测试需要开启 JavaScript 才能使用。</p></noscript>
+</body>
+</html>
